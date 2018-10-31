@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>Hello {{result}} {{name}}</h1>
+    <p>성별을 입력하세요.</p>
+    <input type="text" v-on:keyup.13="gender">
+    <p>이름을 입력하세요.</p>
+    <input type="text" v-model="name">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      new Vue({
+        el: '#app',
+        data: {
+          name: 'Anderson',
+          result: '123',
+
+        },
+        methods: {
+          gender: function(e) {
+            test = e.target.value;
+            if (test) {
+              switch (test) {
+                case "male":
+                  this.result = "Mister";
+                  break;
+                case "female":
+                  this.result = "Miss";
+                  break;
+                default:
+                  alert("유효하지 않습니다.")
+                  break;
+              }
+            }
+          }
+        }
+      })
+    </script>
+
+</body>
+
+</html>

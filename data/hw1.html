@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  
+  <div id="app">
+    <h1>Todolist</h1>
+    <add-todo></add-todo>
+    <ul>
+      <li v-for="s in updateTodos">{{s}}</li>
+      {{updateTodos}}
+    </ul>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js" charset="utf-8"></script>
+
+  <script type="text/javascript">
+    var eventBus = new Vue();
+    Vue.component('add-todo', {
+      template: '<div><input type="text" v-on:keyup.13="enrollIn"> </div>',
+      data: function() {
+        return {
+          todos: [
+            {index:1}
+          ]
+        }
+      },
+      methods: {
+        enrollIn: function(e) {
+          this.todos[this.todos[0].index]= {prop:e.target.value};
+          // console.log(this.todos[0].index);
+          // console.log(this.todos);
+          this.todos[0].index++;
+          console.log(this.todos[0].index);
+          eventBus.$emit('triggerEventBus', this.todos);
+        }
+      }
+    });
+
+    new Vue({
+      el: '#app',
+      data: {
+        updateTodos: []
+      },
+      created: function(){
+        var self = this;
+        eventBus.$on('triggerEventBus', function(value){
+          console.log(value);
+        self.updateTodos=value.splice(0,0);
+        console.log(self.updateTodos);    
+        });  
+      }
+    });
+  </script>
+</body>
+
+</html>
